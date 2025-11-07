@@ -157,6 +157,16 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
         return figuraAhorcado.get(errores);
     }
     
+    public void reiniciar() {
+        
+        if (this.palabraSecreta != null) {
+            inicializarPalabraSecreta(this.palabraSecreta);
+        } else {
+            
+            letrasUsadas.clear();
+            intentos = limiteIntentos;
+            palabraActual = null;
+        }
+    }
     
-
 }
