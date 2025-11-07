@@ -54,8 +54,27 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
             throw new IllegalArgumentException("La palabra secreta no puede ser nula o vacia");
         }
         
+        palabraSecreta = palabra.trim().toUpperCase();
         
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < palabraSecreta.length(); i++) {
+            
+            char c = palabraSecreta.charAt(i);
+            
+            if(Character.isLetter(c)){
+                sb.append("_");
+            } else {
+                sb.append(c);
+            }
+            
+            palabraActual = sb.toString();
+            letrasUsadas.clear();
+            intentos = limiteIntentos;
+        }
     }
+    
+    
     
     
     
