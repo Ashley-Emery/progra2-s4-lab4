@@ -11,7 +11,7 @@ package progra2.s4.lab4;
 
 public interface JuegoAhorcado {
     
-    public void inicializarPalabraSecreta();
+    public void inicializarPalabraSecreta(String palabra);
     public void jugar();
     
 }

@@ -12,7 +12,7 @@ package progra2.s4.lab4;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class JuegoAhorcadoBase {
+public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     
     protected String palabraSecreta;
     protected String palabraActual;
@@ -46,6 +46,15 @@ public abstract class JuegoAhorcadoBase {
                 "  O  \\n /|\\\\ \\n /   ",
                 "  O  \\n /|\\\\ \\n / \\\\ "
         ));
+    }
+    
+    public void inicializarPalabraSecreta(String palabra){
+        
+        if( palabra == null || palabra.trim().isEmpty() ){
+            throw new IllegalArgumentException("La palabra secreta no puede ser nula o vacia");
+        }
+        
+        
     }
     
     
