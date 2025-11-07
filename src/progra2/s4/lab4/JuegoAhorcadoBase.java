@@ -10,6 +10,7 @@ package progra2.s4.lab4;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class JuegoAhorcadoBase {
     
@@ -25,6 +26,26 @@ public abstract class JuegoAhorcadoBase {
         this.letrasUsadas = new ArrayList<>();
         this.figuraAhorcado = crearFiguraBase();
         this.intentos = this.limiteIntentos;
+    }
+    
+    public JuegoAhorcadoBase(int limiteIntentos){
+        this();
+        if( limiteIntentos>0 ){
+            this.limiteIntentos = limiteIntentos;
+            this.intentos = limiteIntentos;
+        }
+    }
+    
+    public ArrayList<String> crearFiguraBase(){
+        return new ArrayList<>(Arrays.asList(
+                "",
+                "  O  ",
+                "  O  \\n  |  ",
+                "  O  \\n /|  ",
+                "  O  \\n /|\\\\ ",
+                "  O  \\n /|\\\\ \\n /   ",
+                "  O  \\n /|\\\\ \\n / \\\\ "
+        ));
     }
     
     
