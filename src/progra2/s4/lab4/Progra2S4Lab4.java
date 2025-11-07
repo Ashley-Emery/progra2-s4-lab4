@@ -8,6 +8,8 @@ package progra2.s4.lab4;
  *
  * @author ashley
  */
+import javax.swing.SwingUtilities;
+
 public class Progra2S4Lab4 {
 
     /**
@@ -15,6 +17,17 @@ public class Progra2S4Lab4 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    }
-    
+        
+        SwingUtilities.invokeLater(() -> {
+            
+            AdminPalabrasSecretas admin = new AdminPalabrasSecretas();
+            
+            JuegoAhorcadoBase juegoFijo = new JuegoAhorcadoFijo("PROGRAMACION");
+            
+            JuegoAhorcadoBase juegoAzar = new JuegoAhorcadoAzar(admin);
+            
+            VentanaJuegoAhorcado ventana = new VentanaJuegoAhorcado(admin, juegoFijo, juegoAzar);
+            ventana.setVisible(true);
+        });
+    }    
 }
