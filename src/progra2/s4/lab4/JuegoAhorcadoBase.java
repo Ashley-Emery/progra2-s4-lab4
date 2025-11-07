@@ -22,7 +22,14 @@ public abstract class JuegoAhorcadoBase {
     
     public JuegoAhorcadoBase(){
         
-        
-        
+        this.letrasUsadas = new ArrayList<>();
+        this.figuraAhorcado = crearFiguraBase();
+        this.intentos = this.limiteIntentos;
     }
+    
+    
+    
+    
+    
+    // actualizarPalabraActual verificarLetra(char letra) hasGanado()
 }
