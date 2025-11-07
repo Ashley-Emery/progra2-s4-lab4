@@ -14,24 +14,24 @@ import java.util.Random;
 public class JuegoAhorcadoAzar extends JuegoAhorcadoBase{
     
     private AdminPalabrasSecretas adminPalabras;
+    private Random random = new Random();
 
-    
-    public JuegoAhorcadoAzar(AdminPalabrasSecretas adminPalabras){
+    public JuegoAhorcadoAzar(AdminPalabrasSecretas adminPalabras) {
+        super(6); // límite de 6 intentos
         this.adminPalabras = adminPalabras;
-        this.limiteIntentos = 6;
-        this.intentos = limiteIntentos;
-        this.letrasUsadas = new ArrayList<>();
-        this.figuraAhorcado = new ArrayList<>();
-        
     }
+
     public void inicializarPalabraSecreta() {
-        this.palabraSecreta = adminPalabras.obtenerPalabraAzar().toUpperCase();
-        this.palabraActual = "_".repeat(palabraSecreta.length());
+        String palabra = adminPalabras.obtenerPalabraAzar();
+        if (palabra == null || palabra.isEmpty()) {
+            throw new IllegalStateException("No hay palabras disponibles para seleccionar.");
+        }
+        super.inicializarPalabraSecreta(palabra);
     }
 
     @Override
     public void jugar() {
-   
+        
     }
 
     @Override
@@ -77,5 +77,6 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase{
             System.out.println(figuraAhorcado.get(errores));
         }
     }
+    
 
 }
