@@ -17,7 +17,7 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     protected String palabraSecreta;
     protected String palabraActual;
     protected int intentos;
-    protected int limiteIntentos;
+    protected int limiteIntentos = 6;
     protected ArrayList<Character> letrasUsadas;
     protected ArrayList<String> figuraAhorcado;
     
@@ -60,42 +60,42 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     }
     
     
-    public ArrayList<String> crearFiguraBase(){
-        return new ArrayList<>(Arrays.asList(
-                "",
-                "  O  ",
-                "  O  \\n  |  ",
-                "  O  \\n /|  ",
-                "  O  \\n /|\\\\ ",
-                "  O  \\n /|\\\\ \\n /   ",
-                "  O  \\n /|\\\\ \\n / \\\\ "
-        ));
-    }
+    public ArrayList<String> crearFiguraBase() {
+    return new ArrayList<>(Arrays.asList(
+        "",
+        "  O  ",
+        "  O  \n  |  ",
+        "  O  \n /|  ",
+        "  O  \n /|\\ ",
+        "  O  \n /|\\ \n /   ",
+        "  O  \n /|\\ \n / \\ "
+    ));
+}
     
     public void inicializarPalabraSecreta(String palabra){
-        
+
         if( palabra == null || palabra.trim().isEmpty() ){
             throw new IllegalArgumentException("La palabra secreta no puede ser nula o vacia");
         }
-        
+
         palabraSecreta = palabra.trim().toUpperCase();
-        
+
         StringBuilder sb = new StringBuilder();
-        
+
         for (int i = 0; i < palabraSecreta.length(); i++) {
             
             char c = palabraSecreta.charAt(i);
             
             if(Character.isLetter(c)){
-                sb.append("_");
+                sb.append('_');
             } else {
                 sb.append(c);
             }
-            
-            palabraActual = sb.toString();
-            letrasUsadas.clear();
-            intentos = limiteIntentos;
         }
+        
+        palabraActual = sb.toString();
+        letrasUsadas.clear();
+        intentos = limiteIntentos;
     }
     
     
