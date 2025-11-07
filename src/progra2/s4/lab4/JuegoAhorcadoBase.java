@@ -156,5 +156,7 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
         
         return figuraAhorcado.get(errores);
     }
+    
+    
 
 }
