@@ -13,70 +13,65 @@ import java.util.Random;
 
 public class JuegoAhorcadoAzar extends JuegoAhorcadoBase{
     
-    private AdminPalabrasSecretas adminPalabras;
-    private Random random = new Random();
+    private final AdminPalabrasSecretas admin;
 
-    public JuegoAhorcadoAzar(AdminPalabrasSecretas adminPalabras) {
-        super(6); // límite de 6 intentos
-        this.adminPalabras = adminPalabras;
-    }
-
-    public void inicializarPalabraSecreta() {
-        String palabra = adminPalabras.obtenerPalabraAzar();
-        if (palabra == null || palabra.isEmpty()) {
-            throw new IllegalStateException("No hay palabras disponibles para seleccionar.");
-        }
-        super.inicializarPalabraSecreta(palabra);
-    }
-
-    @Override
-    public void jugar() {
+    public JuegoAhorcadoAzar(AdminPalabrasSecretas admin) {
+        super();
+        this.admin = admin;
         
-    }
-
-    @Override
-    public boolean verificarLetra(char letra) {
-        letra = Character.toUpperCase(letra);
-
-        if (letrasUsadas.contains(letra)) {
-            System.out.println("Letra repetida: " + letra);
-            return false;
+        if (figuraAhorcado == null || figuraAhorcado.isEmpty()) {
+            figuraAhorcado = crearFiguraBase();
         }
-
-        letrasUsadas.add(letra);
-
-        if (palabraSecreta.indexOf(letra) >= 0) {
-            actualizarPalabraActual(letra);
-            return true;
-        } else {
-            intentos--;
-            actualizarFigura();
-            return false;
-        }
+        
+        String palabra = admin.obtenerPalabraAlAzar();
+        
+        if (palabra != null)
+            inicializarPalabraSecreta(palabra);
     }
 
-    @Override
-    public void actualizarPalabraActual(char letra) {
-        StringBuilder nueva = new StringBuilder(palabraActual);
-        for (int i = 0; i < palabraSecreta.length(); i++) {
-            if (palabraSecreta.charAt(i) == letra) {
-                nueva.setCharAt(i, letra);
-            }
-        }
-        palabraActual = nueva.toString();
-    }
-
-    @Override
-    public boolean hasGanado() {
-        return !palabraActual.contains("_");
-    }
-
-    public void actualizarFigura() {
-        int errores = limiteIntentos - intentos;
-        if (errores >= 0 && errores < figuraAhorcado.size()) {
-            System.out.println(figuraAhorcado.get(errores));
+    public void seleccionarNuevaPalabra() {
+        String p = admin.obtenerPalabraAlAzar();
+        
+        if (p != null) {
+            inicializarPalabraSecreta(p);
         }
     }
     
+    public boolean verificarLetra(char letra) throws AhorcadoExceptions.EntradaInvalidaException {
+        if (!Character.isLetter(letra)) {
+            throw new AhorcadoExceptions.EntradaInvalidaException("Debe ingresar una letra.");
+        }
+        letra = Character.toUpperCase(letra);
+        boolean contiene = false;
+        for (int i = 0; i < palabraSecreta.length(); i++) {
+            if (palabraSecreta.charAt(i) == letra) {
+                contiene = true;
+            }
+        }
+        if (contiene) actualizarPalabraActual(letra);
+        return contiene;
+    }
+
+    public void actualizarPalabraActual(char letra) {
+        
+        StringBuilder sb = new StringBuilder(palabraActual);
+        
+        for (int i = 0; i < palabraSecreta.length(); i++) {
+            
+            if (palabraSecreta.charAt(i) == letra) {
+                sb.setCharAt(i, letra);
+            }
+            
+        }
+        palabraActual = sb.toString();
+    }
+    
+    public boolean hasGanado() {
+        return palabraActual != null && palabraActual.equals(palabraSecreta);
+    }
+    
+    public void jugar() {
+        throw new UnsupportedOperationException("Use la GUI para jugar (VentanaAhorcado).");
+    }
 
 }
