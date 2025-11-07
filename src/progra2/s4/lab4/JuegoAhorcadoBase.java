@@ -141,11 +141,20 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
         return acerto;
     }
     
-    
-    
-    
-    
-    
-    
-    // actualizarPalabraActual verificarLetra(char letra) hasGanado()
+    public String obtenerFigura(){
+        
+        int errores = limiteIntentos - intentos;
+        
+        if (errores < 0)
+            errores = 0;
+        
+        if ( figuraAhorcado == null || figuraAhorcado.isEmpty() )
+            return "";
+        
+        if (errores >= figuraAhorcado.size())
+            errores = figuraAhorcado.size() - 1;
+        
+        return figuraAhorcado.get(errores);
+    }
+
 }
