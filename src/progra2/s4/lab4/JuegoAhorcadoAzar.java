@@ -22,11 +22,60 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase{
         this.intentos = limiteIntentos;
         this.letrasUsadas = new ArrayList<>();
         this.figuraAhorcado = new ArrayList<>();
-        inicializarFigura();
+        
     }
     public void inicializarPalabraSecreta() {
         this.palabraSecreta = adminPalabras.obtenerPalabraAzar().toUpperCase();
         this.palabraActual = "_".repeat(palabraSecreta.length());
     }
+
+    @Override
+    public void jugar() {
    
+    }
+
+    @Override
+    public boolean verificarLetra(char letra) {
+        letra = Character.toUpperCase(letra);
+
+        if (letrasUsadas.contains(letra)) {
+            System.out.println("Letra repetida: " + letra);
+            return false;
+        }
+
+        letrasUsadas.add(letra);
+
+        if (palabraSecreta.indexOf(letra) >= 0) {
+            actualizarPalabraActual(letra);
+            return true;
+        } else {
+            intentos--;
+            actualizarFigura();
+            return false;
+        }
+    }
+
+    @Override
+    public void actualizarPalabraActual(char letra) {
+        StringBuilder nueva = new StringBuilder(palabraActual);
+        for (int i = 0; i < palabraSecreta.length(); i++) {
+            if (palabraSecreta.charAt(i) == letra) {
+                nueva.setCharAt(i, letra);
+            }
+        }
+        palabraActual = nueva.toString();
+    }
+
+    @Override
+    public boolean hasGanado() {
+        return !palabraActual.contains("_");
+    }
+
+    public void actualizarFigura() {
+        int errores = limiteIntentos - intentos;
+        if (errores >= 0 && errores < figuraAhorcado.size()) {
+            System.out.println(figuraAhorcado.get(errores));
+        }
+    }
+
 }
