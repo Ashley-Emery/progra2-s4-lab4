@@ -100,6 +100,49 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     
     
     
+    public void actualizarFigura(){}
+    
+    public abstract boolean verificarLetra(char letra) throws AhorcadoExceptions.EntradaInvalidaException;
+    
+    public abstract void actualizarPalabraActual(char letra);
+    
+    public abstract boolean hasGanado();
+    
+    public abstract void jugar();
+    
+    public boolean intentarLetra(char letra) throws AhorcadoExceptions.IntentosAgotadosException,
+                                                    AhorcadoExceptions.EntradaInvalidaException,
+                                                    AhorcadoExceptions.LetraRepetidaException {
+
+        if ( intentos <= 0 ) {
+            throw new  AhorcadoExceptions.IntentosAgotadosException("No quedan intentos.");
+        }
+
+        if ( !Character.isLetter(letra) ) {
+            throw new AhorcadoExceptions.EntradaInvalidaException("La entrada debe ser una letra (A-Z).");
+        }
+
+        letra = Character.toUpperCase(letra);
+
+        if ( letrasUsadas.contains(letra) ) {
+            throw new AhorcadoExceptions.LetraRepetidaException("La letra '" + letra + "' ya fue usada.");
+        }
+
+        letrasUsadas.add(letra);
+
+        boolean acerto = verificarLetra(letra);
+        
+        if (!acerto) {
+            intentos--;
+        }
+        
+        actualizarFigura();
+
+        return acerto;
+    }
+    
+    
+    
     
     
     
